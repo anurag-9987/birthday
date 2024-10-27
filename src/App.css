@@ -1,26 +1,54 @@
-.App {
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
   text-align: center;
   padding: 20px;
-  font-family: Arial, sans-serif;
 }
 
-input, textarea {
-  width: 300px;
-  margin-bottom: 10px;
-  padding: 10px;
-  font-size: 16px;
+h1 {
+  color: #ff6347;
+  margin-bottom: 20px;
+}
+
+.flipbook {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.flipbook-page {
+  min-width: 300px;
+  transition: transform 0.5s;
+}
+
+.flipbook-page img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navigation {
+  margin-top: 20px;
 }
 
 button {
+  margin: 0 10px;
   padding: 10px 20px;
   font-size: 16px;
-  cursor: pointer;
-  background-color: #4CAF50;
-  color: white;
   border: none;
   border-radius: 5px;
+  background-color: #ff6347;
+  color: white;
+  cursor: pointer;
 }
 
-button:hover {
-  background-color: #45a049;
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #ff4500;
 }

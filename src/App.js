@@ -1,44 +1,45 @@
 import React, { useState } from 'react';
 import './App.css';
 
-const App = () => {
-  const [name, setName] = useState('');
-  const [wish, setWish] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+// Function to import all images from the specified folder
+const importAll = (r) => {
+  return r.keys().map(r);
+};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
+const images = importAll(require.context('./mypics', false, /\.(png|jpe?g|svg)$/));
+
+const App = () => {
+  const [name, setName] = useState('Srishti');
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const nextPage = () => {
+    if (currentPage < images.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   return (
     <div className="App">
-      <h1>Happy Birthday Wishes!</h1>
-      {submitted ? (
-        <div>
-          <h2>Happy Birthday, {name}!</h2>
-          <p>Your wish: "{wish}" has been sent!</p>
+      <h1>Happy Birthday, {name}!</h1>
+      <div className="flipbook">
+        <div className="flipbook-page">
+          <img src={images[currentPage]} alt={`Page ${currentPage + 1}`} />
         </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Friend's Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <br />
-          <textarea
-            placeholder="Type your birthday wish here..."
-            value={wish}
-            onChange={(e) => setWish(e.target.value)}
-            required
-          />
-          <br />
-          <button type="submit">Send Birthday Wish</button>
-        </form>
-      )}
+      </div>
+      <div className="navigation">
+        <button onClick={prevPage} disabled={currentPage === 0}>
+          Previous
+        </button>
+        <button onClick={nextPage} disabled={currentPage === images.length - 1}>
+          Next
+        </button>
+      </div>
     </div>
   );
 };
